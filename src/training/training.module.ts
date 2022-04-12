@@ -4,10 +4,11 @@ import { TrainingService } from './training.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Training } from '../database/entity/training.entity';
 import { ConfigService } from '@nestjs/config';
-import { TrainingParts } from '../database/entity/trainingParts.entity';
+import { Discipline } from '../database/entity/discipline.entity';
+import { TrainingPart } from '../database/entity/trainingPart.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Training, TrainingParts])],
+  imports: [TypeOrmModule.forFeature([Training, TrainingPart, Discipline])],
   controllers: [TrainingController],
   providers: [TrainingService, ConfigService],
 })

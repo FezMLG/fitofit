@@ -1,5 +1,12 @@
 import { UUIDVersion } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { TrainingPart } from './trainingPart.entity';
 
 @Entity()
 export class Training {
@@ -11,6 +18,9 @@ export class Training {
 
   @Column({ type: 'date' })
   date: string;
+
+  @OneToMany(() => TrainingPart, (trainingPart) => trainingPart.training)
+  parts: TrainingPart[];
 
   @Column({ type: 'text', default: '' })
   notes: string;
