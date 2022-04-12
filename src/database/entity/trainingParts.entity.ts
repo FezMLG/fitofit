@@ -1,5 +1,6 @@
 import { UUIDVersion } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Training } from './training.entity';
 
 @Entity()
 export class TrainingParts {
@@ -9,7 +10,7 @@ export class TrainingParts {
   @Column({ type: 'text' })
   userId: string;
 
-  @Column({ type: 'text' })
+  @ManyToOne(() => Training, (training) => training.id)
   trainingId: string;
 
   @Column({ type: 'text' })
