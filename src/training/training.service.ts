@@ -71,6 +71,11 @@ export class TrainingService {
     }
   }
 
+  //   SELECT *
+  //   FROM information_schema.columns
+  //  WHERE table_schema = 'public'
+  //      ;
+
   async deleteOneTraining(id: string) {
     await this.trainingPartRepository
       .createQueryBuilder()
