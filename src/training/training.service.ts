@@ -34,11 +34,34 @@ export class TrainingService {
     }
   }
 
-  async getTraining(trainingId: string) {
+  async getOneTraining(trainingId: string) {
     return await this.trainingRepository
       .createQueryBuilder('training')
       .innerJoinAndSelect('training.parts', 'parts')
-      .where(`'training_part.trainingId' = '${trainingId}'`)
-      .getOne();
+      .where(`training.id = '${trainingId}'`)
+      .getOneOrFail();
   }
+
+  async getManyTrainings() {
+    return await this.trainingRepository
+      .createQueryBuilder('training')
+      .innerJoinAndSelect('training.parts', 'parts')
+      .getMany();
+  }
+
+  deleteOneTraining(id: string) {
+    throw new Error('Method not implemented.');
+  }
+
+  // async deleteOneTraining(id: string) {
+  //   return await this.trainingRepository
+  //     .createQueryBuilder()
+  //     .relation(TrainingPart, 'training_part')
+  //     .of(id)
+  //     .delete();
+  // }
+
+  // async deleteOneTraining(id: string) {
+  //   return await this.trainingRepository.delete(id);
+  // }
 }

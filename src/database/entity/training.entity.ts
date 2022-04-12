@@ -21,6 +21,7 @@ export class Training {
 
   @OneToMany(() => TrainingPart, (trainingPart) => trainingPart.training, {
     cascade: true,
+    onDelete: 'CASCADE',
   })
   parts: TrainingPart[];
 
