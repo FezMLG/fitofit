@@ -12,11 +12,11 @@ export class Training {
   @Column({ type: 'text' })
   disciplineId: string;
 
-  @Column({ type: 'number' })
-  distance: string;
+  @Column({ type: 'integer' })
+  distance: number;
 
-  @Column({ type: 'number' })
-  duration: string;
+  @Column({ type: 'integer' })
+  duration: number;
 
   @Column({ type: 'date' })
   date: string;

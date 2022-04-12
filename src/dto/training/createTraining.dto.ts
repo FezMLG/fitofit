@@ -6,6 +6,8 @@ import {
   MaxDate,
   IsDate,
   ValidateNested,
+  IsOptional,
+  IsObject,
 } from 'class-validator';
 import { Discipline, IPartialWorkout } from '../../interfaces';
 
@@ -22,10 +24,12 @@ export class CreateTrainingDto {
   @IsString()
   readonly date: string;
 
-  @ValidateNested({ each: true })
-  @Type(() => WorkoutDto)
+  // @ValidateNested({ each: true })
+  // @Type(() => WorkoutDto)
+  @IsObject()
   readonly parts: WorkoutDto;
 
   @IsString()
-  readonly notes: string;
+  @IsOptional()
+  readonly notes?: string;
 }

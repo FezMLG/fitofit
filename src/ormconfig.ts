@@ -1,22 +1,19 @@
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 import { Training } from './database/entity/Training.entity';
+import 'dotenv/config';
 
 export const ormConfig: PostgresConnectionOptions = {
   type: 'postgres',
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT),
-  username: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
+  username: process.env.POSTGRES_USER,
+  password: process.env.POSTGRES_PASSWORD,
+  database: process.env.POSTGRES_DB,
   synchronize: true,
-  logging: false,
   entities: [Training],
   // entities: ['src/database/entity/*.ts'],
-  migrations: ['src/database/migration/**/*.ts'],
-  subscribers: ['src/database/subscriber/**/*.ts'],
+  migrations: ['dist/src/db/migrations*.js'],
   cli: {
-    entitiesDir: 'src/database/entity',
-    migrationsDir: 'src/database/migration',
-    subscribersDir: 'src/database/subscriber',
+    migrationsDir: 'src/db/migrations',
   },
 };
