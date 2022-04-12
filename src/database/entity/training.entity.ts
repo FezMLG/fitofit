@@ -19,7 +19,9 @@ export class Training {
   @Column({ type: 'date' })
   date: string;
 
-  @OneToMany(() => TrainingPart, (trainingPart) => trainingPart.training)
+  @OneToMany(() => TrainingPart, (trainingPart) => trainingPart.training, {
+    cascade: true,
+  })
   parts: TrainingPart[];
 
   @Column({ type: 'text', default: '' })

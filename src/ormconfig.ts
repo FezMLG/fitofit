@@ -17,4 +17,5 @@ export const ormConfig: PostgresConnectionOptions = {
   cli: {
     migrationsDir: 'src/db/migrations',
   },
+  logging: true,
 };

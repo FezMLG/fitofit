@@ -22,21 +22,26 @@ export class TrainingService {
   async createTraining(createTrainingDto: CreateTrainingDto) {
     try {
       this.db.saveToLocal(createTrainingDto);
-      const addTraining = await this.trainingRepository.save(createTrainingDto);
-      createTrainingDto.parts.forEach(async (el) => {
-        await this.trainingPartRepository.save({
+      const addTraining = this.trainingRepository.create(createTrainingDto);
+      const parts = createTrainingDto.parts.map((el) => {
+        return this.trainingPartRepository.create({
           distance: el.distanceInMeters,
           duration: el.durationInSeconds,
           discipline: el.discipline,
-          training: addTraining,
         });
       });
-      return await this.trainingRepository
-        .createQueryBuilder('training')
-        .innerJoinAndSelect('training.parts', 'parts')
-        .getOne();
+      addTraining.parts = parts;
+      return await this.trainingRepository.save(addTraining);
     } catch (error) {
       throw new HttpException(error, HttpStatus.BAD_REQUEST);
     }
+  }
+
+  async getTraining(trainingId: string) {
+    return await this.trainingRepository
+      .createQueryBuilder('training')
+      .innerJoinAndSelect('training.parts', 'parts')
+      .where(`'training_part.trainingId' = '${trainingId}'`)
+      .getOne();
   }
 }
