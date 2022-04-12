@@ -8,6 +8,7 @@ import {
   ValidateNested,
   IsOptional,
   IsObject,
+  IsArray,
 } from 'class-validator';
 import { Discipline, IPartialWorkout } from '../../interfaces';
 
@@ -26,8 +27,8 @@ export class CreateTrainingDto {
 
   // @ValidateNested({ each: true })
   // @Type(() => WorkoutDto)
-  @IsObject()
-  readonly parts: WorkoutDto;
+  @IsArray()
+  readonly parts: WorkoutDto[];
 
   @IsString()
   @IsOptional()

@@ -13,7 +13,6 @@ export const ormConfig: PostgresConnectionOptions = {
   // entities: [Training],
   // entities: ['src/database/entity/*.ts'],
   entities: ['build/**/*.entity{.ts,.js}'],
-
   migrations: ['build/src/db/migrations*.js'],
   cli: {
     migrationsDir: 'src/db/migrations',

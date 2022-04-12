@@ -9,15 +9,6 @@ export class Training {
   @Column({ type: 'text' })
   userId: string;
 
-  @Column({ type: 'text' })
-  disciplineId: string;
-
-  @Column({ type: 'integer' })
-  distance: number;
-
-  @Column({ type: 'integer' })
-  duration: number;
-
   @Column({ type: 'date' })
   date: string;
 
