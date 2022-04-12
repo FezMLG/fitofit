@@ -39,7 +39,7 @@ export class TrainingService {
       .createQueryBuilder('training')
       .innerJoinAndSelect('training.parts', 'parts')
       .where(`training.id = '${trainingId}'`)
-      .getOneOrFail();
+      .getOne();
   }
 
   async getManyTrainings() {
@@ -49,8 +49,18 @@ export class TrainingService {
       .getMany();
   }
 
-  deleteOneTraining(id: string) {
-    throw new Error('Method not implemented.');
+  // deleteOneTraining(id: string) {
+  //   throw new Error('Method not implemented.');
+  // }
+
+  async deleteOneTraining(id: string) {
+    await this.trainingPartRepository
+      .createQueryBuilder()
+      .delete()
+      .from(TrainingPart)
+      .where('trainingId = :id', { id: id })
+      .execute();
+    return await this.trainingRepository.delete(id);
   }
 
   // async deleteOneTraining(id: string) {

@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateTrainingDto } from '../dto/training/createTraining.dto';
 import { TrainingService } from './training.service';
@@ -16,7 +25,13 @@ export class TrainingController {
 
   @Get(':id')
   async getOneTraining(@Param('id') id: string) {
-    return await this.trainingService.getOneTraining(id);
+    const res = await this.trainingService.getOneTraining(id);
+    if (!res) {
+      throw new HttpException(
+        'Could not find training by given id',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
   @Get()
@@ -26,6 +41,12 @@ export class TrainingController {
 
   @Delete(':id')
   async deleteOneTraining(@Param('id') id: string) {
-    return await this.trainingService.deleteOneTraining(id);
+    const res = await this.trainingService.deleteOneTraining(id);
+    if (res) {
+      return {
+        statusCode: 200,
+        message: `Deleted ${res.affected} rows.`,
+      };
+    }
   }
 }
