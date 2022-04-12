@@ -7,9 +7,11 @@ import {
   HttpStatus,
   Param,
   Post,
+  Put,
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateTrainingDto } from '../dto/training/createTraining.dto';
+import { UpdateTrainingDto } from '../dto/training/updateTraining.dto';
 import { TrainingService } from './training.service';
 
 @ApiTags('training')
@@ -17,9 +19,15 @@ import { TrainingService } from './training.service';
 export class TrainingController {
   constructor(private readonly trainingService: TrainingService) {}
 
-  @Post('add')
-  createTraining(@Body() createTrainingDto: CreateTrainingDto) {
+  @Post()
+  async createTraining(@Body() createTrainingDto: CreateTrainingDto) {
     const res = this.trainingService.createTraining(createTrainingDto);
+    return res;
+  }
+
+  @Put()
+  async updateTraining(@Body() update: UpdateTrainingDto) {
+    const res = this.trainingService.updateTraining(update);
     return res;
   }
 

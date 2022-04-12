@@ -6,6 +6,7 @@ import { ConfigService } from '@nestjs/config';
 import { Training } from '../database/entity/training.entity';
 import { LocalDB } from '../database/localDB.class';
 import { TrainingPart } from '../database/entity/trainingPart.entity';
+import { UpdateTrainingDto } from '../dto/training/updateTraining.dto';
 
 @Injectable()
 export class TrainingService {
@@ -52,6 +53,23 @@ export class TrainingService {
   // deleteOneTraining(id: string) {
   //   throw new Error('Method not implemented.');
   // }
+
+  async updateTraining(updated: UpdateTrainingDto) {
+    try {
+      const addTraining = { ...updated };
+      const parts = updated.parts.map((el) => {
+        return this.trainingPartRepository.create({
+          distance: el.distance,
+          duration: el.duration,
+          discipline: el.discipline,
+        });
+      });
+      addTraining.parts = parts;
+      return await this.trainingRepository.save(addTraining);
+    } catch (error) {
+      throw new HttpException(error, HttpStatus.BAD_REQUEST);
+    }
+  }
 
   async deleteOneTraining(id: string) {
     await this.trainingPartRepository
