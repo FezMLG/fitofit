@@ -8,22 +8,22 @@ import { LocalDB } from '../database/localDB.class';
 
 @Injectable()
 export class TrainingService {
-  // constructor(
-  //   @InjectRepository(Training)
-  //   private trainingRepository: Repository<Training>,
-  // ) {}
+  constructor(
+    @InjectRepository(Training)
+    private trainingRepository: Repository<Training>,
+  ) {}
   db = new LocalDB();
   async createTraining(createTrainingDto: CreateTrainingDto) {
     try {
       this.db.saveToLocal(createTrainingDto);
-      // return await this.trainingRepository.save({
-      //   date: createTrainingDto.date,
-      //   userId: createTrainingDto.userId,
-      //   disciplineId: createTrainingDto.parts.discipline,
-      //   distance: createTrainingDto.parts.distanceInMeters,
-      //   duration: createTrainingDto.parts.durationInSeconds,
-      //   notes: createTrainingDto.notes,
-      // });
+      return await this.trainingRepository.save({
+        date: createTrainingDto.date,
+        userId: createTrainingDto.userId,
+        disciplineId: createTrainingDto.parts.discipline,
+        distance: createTrainingDto.parts.distanceInMeters,
+        duration: createTrainingDto.parts.durationInSeconds,
+        notes: createTrainingDto.notes,
+      });
       return {
         statusCode: 201,
         message: 'added',
