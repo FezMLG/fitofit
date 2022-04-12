@@ -7,7 +7,6 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Discipline } from './discipline.entity';
 import { Training } from './training.entity';
 
 @Entity()
@@ -15,9 +14,9 @@ export class TrainingPart {
   @PrimaryGeneratedColumn('uuid')
   id: UUIDVersion;
 
-  // @OneToOne(() => Discipline)
+  // @ManyToOne(() => Discipline, (discipline) => discipline.name)
   // @JoinColumn()
-  // disciplineId: Discipline;
+  // discipline: string;
 
   @ManyToOne(() => Training, (training) => training.parts)
   training: Training;

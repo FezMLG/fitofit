@@ -1,5 +1,6 @@
 import { UUIDVersion } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { TrainingPart } from '../trainingPart.entity';
 
 @Entity()
 export class Discipline {
