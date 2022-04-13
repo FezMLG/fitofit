@@ -20,6 +20,7 @@ async function bootstrap() {
     .setDescription('The Fitofit API Playground')
     .setVersion('1.0')
     .addTag('training')
+    .addTag('stats')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

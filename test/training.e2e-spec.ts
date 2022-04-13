@@ -95,64 +95,58 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/training (POST)', () => {
-    return request(app.getHttpServer())
+  afterAll(() => {
+    app.close();
+  });
+
+  it('/training (POST)', async () => {
+    const response = await request(app.getHttpServer())
       .post('/training')
       .send(sampleTraining)
       .expect('Content-Type', /json/)
-      .expect(201)
-      .then((response) => {
-        expect(response.body).toEqual(sampleTrainingReturn);
-      });
+      .expect(201);
+    expect(response.body).toEqual(sampleTrainingReturn);
   });
 
-  it('/training (GET)', () => {
-    return request(app.getHttpServer())
+  it('/training (GET)', async () => {
+    const response = await request(app.getHttpServer())
       .get('/training')
       .expect(200)
-      .expect('Content-Type', /json/)
-      .then((response) => {
-        expect(response.body).toEqual(sampleTrainingReturn);
-      });
+      .expect('Content-Type', /json/);
+    expect(response.body).toEqual(sampleTrainingReturn);
   });
 
   describe('/training/:id (GET)', () => {
-    it('should return one training with given id', () => {
+    it('should return one training with given id', async () => {
       request(app.getHttpServer()).post('/training').send(sampleTraining);
-      return request(app.getHttpServer())
+      const response = await request(app.getHttpServer())
         .get('/training/53e7cd30-9c3c-4258-a0f3-fbba5391a9f4')
         .expect(200)
-        .expect('Content-Type', /json/)
-        .then((response) => {
-          expect(response.body).toEqual(sampleTrainingReturn);
-        });
+        .expect('Content-Type', /json/);
+      expect(response.body).toEqual(sampleTrainingReturn);
     });
 
-    it('should return id not found', () => {
+    it('should return id not found', async () => {
       const givenId = 'ba5391a9f4';
-      return request(app.getHttpServer())
+      const response = await request(app.getHttpServer())
         .get(`/training/${givenId}`)
-        .expect('Content-Type', /json/)
-        .then((response) => {
-          if (response.body.id == givenId) {
-            fail();
-          }
-        });
+        .expect('Content-Type', /json/);
+      if (response.body.id == givenId) {
+        fail();
+      }
     });
   });
 
-  it('/training/:id (PUT)', () => {
+  it('/training/:id (PUT)', async () => {
     request(app.getHttpServer()).post('/training').send(sampleTraining);
-    return request(app.getHttpServer())
+    const response = await request(app.getHttpServer())
       .put('/training')
       .send(sampleTrainingReturn)
       .expect(200)
-      .expect('Content-Type', /json/)
-      .then((response) => {
-        expect(response.body).toEqual({
-          statusCode: 200,
-          message: `Updated`,
-        });
-      });
+      .expect('Content-Type', /json/);
+    expect(response.body).toEqual({
+      statusCode: 200,
+      message: `Updated`,
+    });
   });
 });
