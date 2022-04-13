@@ -7,6 +7,7 @@ import { Training } from '../database/entity/training.entity';
 import { LocalDB } from '../database/localDB.class';
 import { TrainingPart } from '../database/entity/trainingPart.entity';
 import { UpdateTrainingDto } from '../dto/training/updateTraining.dto';
+import { ITrainingReturn } from '../interfaces';
 
 @Injectable()
 export class TrainingService {
@@ -17,14 +18,16 @@ export class TrainingService {
     private trainingPartRepository: Repository<TrainingPart>,
   ) {}
   // db = new LocalDB();
-  async createTraining(createTrainingDto: CreateTrainingDto) {
+  async createTraining(
+    createTrainingDto: CreateTrainingDto,
+  ): Promise<ITrainingReturn> {
     try {
       // this.db.saveToLocal(createTrainingDto);
       const addTraining = this.trainingRepository.create(createTrainingDto);
       const parts = createTrainingDto.parts.map((el) => {
         return this.trainingPartRepository.create({
-          distance: el.distanceInMeters,
-          duration: el.durationInSeconds,
+          distance: el.distance,
+          duration: el.duration,
           discipline: el.discipline,
         });
       });
@@ -36,11 +39,12 @@ export class TrainingService {
   }
 
   async getOneTraining(trainingId: string) {
-    return await this.trainingRepository
+    const res = await this.trainingRepository
       .createQueryBuilder('training')
       .innerJoinAndSelect('training.parts', 'parts')
       .where(`training.id = '${trainingId}'`)
       .getOne();
+    return res;
   }
 
   async getManyTrainings() {
@@ -77,13 +81,18 @@ export class TrainingService {
   //      ;
 
   async deleteOneTraining(id: string) {
-    await this.trainingPartRepository
+    const res1 = await this.trainingPartRepository
       .createQueryBuilder()
       .delete()
       .from(TrainingPart)
       .where('trainingId = :id', { id: id })
       .execute();
-    return await this.trainingRepository.delete(id);
+
+    const res2 = await this.trainingRepository.delete(id);
+    return {
+      delete1: res1,
+      delete2: res2,
+    };
   }
 
   // async deleteOneTraining(id: string) {

@@ -14,8 +14,8 @@ import { Discipline, IPartialWorkout } from '../../interfaces';
 
 class WorkoutDto implements IPartialWorkout {
   discipline: Discipline;
-  distanceInMeters: number;
-  durationInSeconds: number;
+  distance: number;
+  duration: number;
 }
 
 export class CreateTrainingDto {

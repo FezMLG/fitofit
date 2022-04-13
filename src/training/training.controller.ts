@@ -28,7 +28,17 @@ export class TrainingController {
   @Put()
   async updateTraining(@Body() update: UpdateTrainingDto) {
     const res = this.trainingService.updateTraining(update);
-    return res;
+    if (!res) {
+      throw new HttpException(
+        'Could not update training',
+        HttpStatus.BAD_REQUEST,
+      );
+    } else {
+      return {
+        statusCode: 200,
+        message: `Updated`,
+      };
+    }
   }
 
   @Get(':id')
@@ -39,6 +49,8 @@ export class TrainingController {
         'Could not find training by given id',
         HttpStatus.BAD_REQUEST,
       );
+    } else {
+      return res;
     }
   }
 
@@ -53,8 +65,9 @@ export class TrainingController {
     if (res) {
       return {
         statusCode: 200,
-        message: `Deleted ${res.affected} rows.`,
+        message: `Deleted ${res.delete2.affected} trainings and ${res.delete1.affected} parts.`,
       };
     }
+    return res;
   }
 }
