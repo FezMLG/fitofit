@@ -106,6 +106,8 @@ export class StatsService {
       return toReturn;
     };
 
+    //todo calculate this badboy with sql instead of this something
+
     return {
       request: getStatsDto,
       stats: {
