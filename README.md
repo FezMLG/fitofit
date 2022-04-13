@@ -1,73 +1,145 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Fitofit Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Training
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+### Add training
 
-## Description
+`/api/training (POST)`
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Request:
 
-## Installation
-
-```bash
-$ npm install
+```json
+{
+  "userId": "forTestingPurposes",
+  "date": "2021-12-02",
+  "parts": [
+    {
+      "discipline": "bike",
+      "distance": 123,
+      "duration": 123
+    }
+  ]
+}
 ```
 
-## Running the app
+Response:
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```json
+{
+  "userId": "forTestingPurposes",
+  "date": "2021-12-02",
+  "parts": [
+    {
+      "discipline": "bike",
+      "distance": 123,
+      "duration": 123,
+      "id": "925b2cfb-74a1-4a22-9520-c135b4b05e6d"
+    }
+  ],
+  "id": "0820ab43-543d-4834-a347-b67a317bfaf7",
+  "notes": ""
+}
 ```
 
-## Test
+### Update training
 
-```bash
-# unit tests
-$ npm run test
+`/api/training (PUT)`
 
-# e2e tests
-$ npm run test:e2e
+Request:
 
-# test coverage
-$ npm run test:cov
+```json
+{
+  "userId": "forTestingPurposes",
+  "date": "2021-12-02",
+  "parts": [
+    {
+      "discipline": "bike",
+      "distance": 123,
+      "duration": 123,
+      "id": "925b2cfb-74a1-4a22-9520-c135b4b05e6d"
+    }
+  ],
+  "id": "0820ab43-543d-4834-a347-b67a317bfaf7",
+  "notes": ""
+}
 ```
 
-## Support
+Response:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```json
+{
+  "statusCode": 200,
+  "message": "Updated"
+}
+```
 
-## Stay in touch
+### Get one training
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+`/api/training/:id (GET)`
 
-## License
+Response:
 
-Nest is [MIT licensed](LICENSE).
+```json
+{
+  "userId": "forTestingPurposes",
+  "date": "2021-12-02",
+  "parts": [
+    {
+      "discipline": "bike",
+      "distance": 123,
+      "duration": 123,
+      "id": "925b2cfb-74a1-4a22-9520-c135b4b05e6d"
+    }
+  ],
+  "id": "0820ab43-543d-4834-a347-b67a317bfaf7",
+  "notes": ""
+}
+```
+
+### Get many trainings
+
+`/api/training/ (GET)`
+
+Response:
+
+```json
+[
+  {
+    "userId": "forTestingPurposes",
+    "date": "2021-12-02",
+    "parts": [
+      {
+        "discipline": "bike",
+        "distance": 123,
+        "duration": 123,
+        "id": "925b2cfb-74a1-4a22-9520-c135b4b05e6d"
+      }
+    ],
+    "id": "0820ab43-543d-4834-a347-b67a317bfaf7",
+    "notes": ""
+  }
+  //and more
+]
+```
+
+### Delete one training
+
+`/api/training/:id (DELETE)`
+
+Response:
+
+```json
+{
+  "statusCode": 200,
+  "message": "Deleted (x) trainings and (x) parts."
+}
+```
+
+## Response on error
+
+```json
+{
+  "statusCode": 404, //or any other
+  "message": "(Error message)"
+}
+```
