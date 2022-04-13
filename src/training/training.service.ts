@@ -16,10 +16,10 @@ export class TrainingService {
     @InjectRepository(TrainingPart)
     private trainingPartRepository: Repository<TrainingPart>,
   ) {}
-  db = new LocalDB();
+  // db = new LocalDB();
   async createTraining(createTrainingDto: CreateTrainingDto) {
     try {
-      this.db.saveToLocal(createTrainingDto);
+      // this.db.saveToLocal(createTrainingDto);
       const addTraining = this.trainingRepository.create(createTrainingDto);
       const parts = createTrainingDto.parts.map((el) => {
         return this.trainingPartRepository.create({
