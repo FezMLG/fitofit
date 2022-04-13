@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { validationSchema } from './env.validation';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ormConfig } from './ormconfig';
+import { StatsModule } from './stats/stats.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { ormConfig } from './ormconfig';
     }),
     TypeOrmModule.forRoot(ormConfig),
     TrainingModule,
+    StatsModule,
   ],
 })
 export class AppModule {}
