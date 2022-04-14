@@ -11,8 +11,10 @@ import { any } from 'joi';
 import { PassThrough } from 'stream';
 import { StatsModule } from '../src/stats/stats.module';
 import ormConfig = require('../src/ormconfig');
+import { cleanupBeforeEachSpec } from './database-cleaner';
 
 describe('AppController (e2e)', () => {
+  // cleanupBeforeEachSpec();
   let app: INestApplication;
 
   const sampleTrainingReturn = {

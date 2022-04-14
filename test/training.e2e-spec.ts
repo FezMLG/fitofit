@@ -9,8 +9,10 @@ import { TrainingPart } from '../src/database/entity/trainingPart.entity';
 import { createHistogram } from 'perf_hooks';
 import { any } from 'joi';
 import { PassThrough } from 'stream';
+import { cleanupBeforeEachSpec } from './database-cleaner';
 
 describe('AppController (e2e)', () => {
+  // cleanupBeforeEachSpec();
   let app: INestApplication;
 
   const mockTrainingRepository = {

@@ -81,11 +81,11 @@ const ormConfig: PostgresConnectionOptions = {
   name: 'default', //for all environments
   type: 'postgres',
   url: process.env.DATABASE_URL,
-  synchronize: true,
+  synchronize: false,
   // entities: [Training, TrainingPart],
   // entities: ['src/database/entity/*.ts'],
   entities: ['build/**/*.entity{.ts,.js}'],
-  migrations: ['build/src/database/migrations*.js'],
+  migrations: ['build/database/migrations/*.js'],
   cli: {
     migrationsDir: 'src/database/migrations',
   },
