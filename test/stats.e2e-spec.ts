@@ -57,20 +57,13 @@ describe('AppController (e2e)', () => {
         total: {
           distance: expect.any(Number),
           duration: expect.any(Number),
-          sport: [
-            {
-              name: expect.any(String),
-              total: expect.any(String),
-            },
-            {
-              name: expect.any(String),
-              total: expect.any(String),
-            },
-            {
-              name: expect.any(String),
-              total: expect.any(String),
-            },
-          ],
+          // sport: [
+          //   {
+          //     name: expect.any(String),
+          //     total: expect.any(String),
+          //   },
+          // ],
+          sport: expect.any(Array),
         },
       },
     });

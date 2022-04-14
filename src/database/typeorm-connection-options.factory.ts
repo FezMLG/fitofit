@@ -24,5 +24,9 @@ export const typeOrmConnectionOptionsFactory = (
       `TypeORM config: "${ormConfigName}" could not be found. Please check ormconfig.ts file`,
     );
   }
-  return { ...ormConfig, url: databaseUrl } as PostgresConnectionOptions;
+  return {
+    ...ormConfig,
+    url: databaseUrl,
+    name: 'default',
+  } as PostgresConnectionOptions;
 };
