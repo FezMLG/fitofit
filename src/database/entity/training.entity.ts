@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { TrainingPart } from './trainingPart.entity';
 
-@Entity()
+@Entity({ name: 'training' })
 export class Training {
   @PrimaryGeneratedColumn('uuid')
   id: UUIDVersion;
