@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { GetStatsDto } from '../dto/stats/getStats.dto';
+import { GetStatsDto } from './stats/getStats.dto';
 import { TrainingService } from '../training/training.service';
 import { StatsService } from './stats.service';
 

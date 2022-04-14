@@ -1,12 +1,12 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreateTrainingDto } from '../dto/training/createTraining.dto';
+import { CreateTrainingDto } from './dto/training/createTraining.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import { Training } from '../database/entity/training.entity';
 import { LocalDB } from '../database/localDB.class';
 import { TrainingPart } from '../database/entity/trainingPart.entity';
-import { UpdateTrainingDto } from '../dto/training/updateTraining.dto';
+import { UpdateTrainingDto } from './dto/training/updateTraining.dto';
 import { ITrainingReturn } from '../interfaces';
 
 @Injectable()

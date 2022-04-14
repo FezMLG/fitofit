@@ -1,7 +1,7 @@
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
-import { Training } from './database/entity/Training.entity';
+import { Training } from './entity/Training.entity';
 import 'dotenv/config';
-import { TrainingPart } from './database/entity/trainingPart.entity';
+import { TrainingPart } from './entity/trainingPart.entity';
 
 module.exports = [
   {

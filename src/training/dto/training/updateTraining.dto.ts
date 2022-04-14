@@ -1,17 +1,12 @@
 import { Type } from 'class-transformer';
 import {
   IsString,
-  IsPositive,
-  IsDateString,
-  MaxDate,
-  IsDate,
-  ValidateNested,
   IsOptional,
-  IsObject,
   IsArray,
   UUIDVersion,
+  ValidateNested,
 } from 'class-validator';
-import { Discipline, IPartialWorkout } from '../../interfaces';
+import { Discipline, IPartialWorkout } from '../../../interfaces';
 
 class WorkoutDto {
   id: UUIDVersion;

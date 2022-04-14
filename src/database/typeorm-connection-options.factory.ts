@@ -3,7 +3,7 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { NodeEnvironment } from '../node-environment';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const ormConfigurations: TypeOrmModuleOptions[] = require('./../ormconfig');
+const ormConfigurations: TypeOrmModuleOptions[] = require('./ormconfig');
 
 export const typeOrmConnectionOptionsFactory = (
   configService: ConfigService,

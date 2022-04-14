@@ -10,7 +10,7 @@ import {
   IsObject,
   IsArray,
 } from 'class-validator';
-import { Discipline, IPartialWorkout } from '../../interfaces';
+import { Discipline, IPartialWorkout } from '../../../interfaces';
 
 class WorkoutDto implements IPartialWorkout {
   discipline: Discipline;

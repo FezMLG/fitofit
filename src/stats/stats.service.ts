@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { Discipline } from '../database/entity/forFutureUse/discipline.entity';
 import { Training } from '../database/entity/training.entity';
 import { TrainingPart } from '../database/entity/trainingPart.entity';
-import { GetStatsDto } from '../dto/stats/getStats.dto';
+import { GetStatsDto } from './stats/getStats.dto';
 import { IStatsResponse } from '../interfaces';
 
 @Injectable()

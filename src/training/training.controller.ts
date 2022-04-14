@@ -10,8 +10,8 @@ import {
   Put,
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateTrainingDto } from '../dto/training/createTraining.dto';
-import { UpdateTrainingDto } from '../dto/training/updateTraining.dto';
+import { CreateTrainingDto } from './dto/training/createTraining.dto';
+import { UpdateTrainingDto } from './dto/training/updateTraining.dto';
 import { TrainingService } from './training.service';
 
 @ApiTags('training')
