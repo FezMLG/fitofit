@@ -16,7 +16,7 @@ export class StatsService {
     private trainingPartRepository: Repository<TrainingPart>,
   ) {}
 
-  async getStats(getStatsDto: GetStatsDto): Promise<IStatsResponse> {
+  async getStats(getStatsDto: GetStatsDto): Promise<any> {
     let discipline = '';
     if (getStatsDto.discipline) {
       discipline = `discipline = '${getStatsDto.discipline}'`;
@@ -37,103 +37,56 @@ export class StatsService {
     }
     const dataToFilter = await this.trainingRepository
       .createQueryBuilder('training')
-      .innerJoinAndSelect('training.parts', 'parts')
+      .select([
+        'MAX(parts.distance)::INTEGER as top_distance',
+        'MAX(parts.duration)::INTEGER as top_duration',
+        'ROUND(AVG(parts.distance), 2) as avg_distance',
+        'ROUND(AVG(parts.duration), 2) as avg_duration',
+        'SUM(parts.distance)::INTEGER as sum_distance',
+        'SUM(parts.duration)::INTEGER as sum_duration',
+      ])
+      .innerJoin('training.parts', 'parts')
       .where(`${dateParam} ${isAnd} ${discipline}`)
-      .getMany();
+      .getRawOne();
 
-    const calcSum = (what: 'distance' | 'duration') => {
-      let toReturn = 0;
-      if (what == 'distance') {
-        dataToFilter.map((el) => {
-          el.parts.map((ele) => {
-            toReturn += ele.distance;
-          });
-        });
-      } else if (what == 'duration') {
-        dataToFilter.map((el) => {
-          el.parts.map((ele) => {
-            toReturn += ele.duration;
-          });
-        });
-      }
-      return toReturn;
-    };
-
-    const calcAvg = (what: 'distance' | 'duration') => {
-      let toReturn = 0;
-      let howMany = 0;
-      if (what == 'distance') {
-        dataToFilter.map((el) => {
-          el.parts.map((ele) => {
-            toReturn += ele.distance;
-            howMany++;
-          });
-        });
-      } else if (what == 'duration') {
-        dataToFilter.map((el) => {
-          el.parts.map((ele) => {
-            toReturn += ele.duration;
-            howMany++;
-          });
-        });
-      }
-      if (howMany == 0) {
-        return toReturn;
-      } else {
-        return toReturn / howMany;
-      }
-    };
-
-    const calcTop = (what: 'distance' | 'duration') => {
-      let toReturn = 0;
-      if (what == 'distance') {
-        dataToFilter.map((el) => {
-          el.parts.map((ele) => {
-            if (toReturn < ele.distance) {
-              toReturn = ele.distance;
-            }
-          });
-        });
-      } else if (what == 'duration') {
-        dataToFilter.map((el) => {
-          el.parts.map((ele) => {
-            if (toReturn < ele.duration) {
-              toReturn = ele.duration;
-            }
-          });
-        });
-      }
-      return toReturn;
-    };
+    const sportData = await this.trainingRepository
+      .createQueryBuilder('training')
+      .select(['count(discipline) as total, discipline as name'])
+      .innerJoin('training.parts', 'parts')
+      .where(`${dateParam} ${isAnd} ${discipline}`)
+      .groupBy('discipline')
+      .orderBy('count(discipline)', 'DESC')
+      .getRawMany();
 
     //todo calculate this badboy with sql instead of this something
-
+    // return sportData;
+    const mapSports = sportData.map((el) => {
+      return {
+        name: el.name,
+        total: el.total,
+      };
+    });
     return {
       request: getStatsDto,
       stats: {
         top: {
           avgSpeed: 1,
-          distance: calcTop('distance'),
-          duration: calcTop('duration'),
+          distance: dataToFilter.top_distance,
+          duration: dataToFilter.top_duration,
           favoriteSport: {
-            name: 's',
-            total: 1,
+            name: sportData[0].name,
+            total: sportData[0].total,
           },
         },
         avg: {
           avgSpeed: 1,
-          distance: calcAvg('distance'),
-          duration: calcAvg('duration'),
+          distance: Number(dataToFilter.avg_distance),
+          duration: Number(dataToFilter.avg_duration),
         },
         total: {
-          distance: calcSum('distance'),
-          duration: calcSum('duration'),
-          sport: [
-            {
-              name: 's',
-              total: 1,
-            },
-          ],
+          distance: dataToFilter.sum_distance,
+          duration: dataToFilter.sum_duration,
+          sport: mapSports,
         },
       },
     };
