@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 // import * as ormConfig from './ormconfig';
 import { StatsModule } from './stats/stats.module';
 import ormConfig = require('./ormconfig');
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import ormConfig = require('./ormconfig');
       expandVariables: true,
       validationSchema,
     }),
-    TypeOrmModule.forRoot(ormConfig),
+    DatabaseModule,
     TrainingModule,
     StatsModule,
   ],

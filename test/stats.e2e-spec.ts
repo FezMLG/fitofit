@@ -17,21 +17,6 @@ describe('AppController (e2e)', () => {
   // cleanupBeforeEachSpec();
   let app: INestApplication;
 
-  const sampleTrainingReturn = {
-    userId: 'forTestingPurposes',
-    date: '2021-12-02',
-    parts: [
-      {
-        discipline: 'bike',
-        distance: 123,
-        duration: 123,
-        id: '7777a883-8bc9-40c0-85bd-84372bc0bf98',
-      },
-    ],
-    id: '53e7cd30-9c3c-4258-a0f3-fbba5391a9f4',
-    notes: '',
-  };
-
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -46,6 +31,7 @@ describe('AppController (e2e)', () => {
   });
 
   it('/stats (POST)', async () => {
+    console.log(process.env.NODE_ENV);
     const response = await request(app.getHttpServer())
       .post('/stats')
       .send()
