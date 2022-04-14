@@ -7,7 +7,10 @@ import { ConfigService } from '@nestjs/config';
 import { TrainingPart } from '../database/entity/trainingPart.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Training, TrainingPart])],
+  imports: [
+    TypeOrmModule.forFeature([Training, TrainingPart]),
+    // TypeOrmModule.forFeature([Training, TrainingPart], process.env.NODE_ENV),
+  ],
   controllers: [TrainingController],
   providers: [TrainingService, ConfigService],
 })

@@ -5,6 +5,7 @@ import { AppModule } from './app.module';
 import 'dotenv/config';
 
 async function bootstrap() {
+  console.log(process.env.NODE_ENV);
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
   app.useGlobalPipes(
