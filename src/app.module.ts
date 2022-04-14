@@ -3,8 +3,9 @@ import { TrainingModule } from './training/training.module';
 import { ConfigModule } from '@nestjs/config';
 import { validationSchema } from './env.validation';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import * as ormConfig from './ormconfig';
+// import * as ormConfig from './ormconfig';
 import { StatsModule } from './stats/stats.module';
+import ormConfig = require('./ormconfig');
 
 @Module({
   imports: [

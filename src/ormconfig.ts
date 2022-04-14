@@ -1,6 +1,7 @@
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 import { Training } from './database/entity/Training.entity';
 import 'dotenv/config';
+import { TrainingPart } from './database/entity/trainingPart.entity';
 
 // module.exports = [
 //   {
@@ -62,21 +63,33 @@ import 'dotenv/config';
 //   },
 // ];
 
-module.exports = {
+// module.exports = {
+//   type: 'postgres',
+//   url: process.env.DATABASE_URL,
+//   synchronize: true,
+//   // entities: [Training],
+//   // entities: ['src/database/entity/*.ts'],
+//   entities: ['build/**/*.entity{.ts,.js}'],
+//   migrations: ['build/src/db/migrations*.js'],
+//   cli: {
+//     migrationsDir: 'src/db/migrations',
+//   },
+//   logging: true,
+// };
+
+const ormConfig: PostgresConnectionOptions = {
+  name: 'default', //for all environments
   type: 'postgres',
   url: process.env.DATABASE_URL,
-  // host: process.env.DB_HOST,
-  // port: Number(process.env.DB_PORT),
-  // username: process.env.POSTGRES_USER,
-  // password: process.env.POSTGRES_PASSWORD,
-  // database: process.env.POSTGRES_DB,
   synchronize: true,
-  // entities: [Training],
+  // entities: [Training, TrainingPart],
   // entities: ['src/database/entity/*.ts'],
   entities: ['build/**/*.entity{.ts,.js}'],
-  migrations: ['build/src/db/migrations*.js'],
+  migrations: ['build/src/database/migrations*.js'],
   cli: {
-    migrationsDir: 'src/db/migrations',
+    migrationsDir: 'src/database/migrations',
   },
   logging: true,
 };
+
+export = ormConfig;
