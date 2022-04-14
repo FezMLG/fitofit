@@ -2,16 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
-import { TrainingModule } from '../src/training/training.module';
-import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
-import { Training } from '../src/database/entity/training.entity';
-import { TrainingPart } from '../src/database/entity/trainingPart.entity';
-import { createHistogram } from 'perf_hooks';
-import { any } from 'joi';
-import { PassThrough } from 'stream';
-import { StatsModule } from '../src/stats/stats.module';
-import ormConfig = require('../src/ormconfig');
-import { cleanupBeforeEachSpec } from './database-cleaner';
 
 describe('AppController (e2e)', () => {
   // cleanupBeforeEachSpec();
