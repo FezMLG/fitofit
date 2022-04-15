@@ -9,7 +9,9 @@ module.exports = [
     type: 'postgres',
     url: process.env.DATABASE_URL,
     schema: 'public',
-
+    extra: {
+      ssl: true,
+    },
     synchronize: false,
     migrationsRun: true,
 
