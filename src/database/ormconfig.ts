@@ -10,7 +10,7 @@ module.exports = [
     url: process.env.DATABASE_URL,
     schema: 'public',
     extra: {
-      ssl: true,
+      ssl: false,
     },
     synchronize: false,
     migrationsRun: true,
