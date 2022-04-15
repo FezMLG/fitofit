@@ -8,6 +8,8 @@ import { LocalDB } from '../database/localDB.class';
 import { TrainingPart } from '../database/entity/trainingPart.entity';
 import { UpdateTrainingDto } from './dto/training/updateTraining.dto';
 import { ITrainingReturn } from '../interfaces';
+import { UUIDVersion } from 'class-validator';
+import { GetOneTrainingDto } from './dto/training/getOneTraining.dto';
 
 @Injectable()
 export class TrainingService {
@@ -20,14 +22,14 @@ export class TrainingService {
   // db = new LocalDB();
   async createTraining(
     createTrainingDto: CreateTrainingDto,
-  ): Promise<ITrainingReturn> {
+  ): Promise<ITrainingReturn | HttpException> {
     try {
       // this.db.saveToLocal(createTrainingDto);
       const addTraining = this.trainingRepository.create(createTrainingDto);
       const parts = createTrainingDto.parts.map((el) => {
         return this.trainingPartRepository.create({
-          distance: el.distance,
-          duration: el.duration,
+          distanceInMeters: el.distanceInMeters,
+          durationInSeconds: el.durationInSeconds,
           discipline: el.discipline,
         });
       });
@@ -39,12 +41,19 @@ export class TrainingService {
   }
 
   async getOneTraining(trainingId: string) {
-    const res = await this.trainingRepository
-      .createQueryBuilder('training')
-      .innerJoinAndSelect('training.parts', 'parts')
-      .where(`training.id = '${trainingId}'`)
-      .getOne();
-    return res;
+    try {
+      const res = await this.trainingRepository
+        .createQueryBuilder('training')
+        .innerJoinAndSelect('training.parts', 'parts')
+        .where(`training.id = '${trainingId}'`)
+        .getOne();
+      return res;
+    } catch (error) {
+      throw new HttpException(
+        'Probably there is not valid uuid',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
   async getManyTrainings() {
@@ -63,15 +72,18 @@ export class TrainingService {
       const addTraining = { ...updated };
       const parts = updated.parts.map((el) => {
         return this.trainingPartRepository.create({
-          distance: el.distance,
-          duration: el.duration,
+          distanceInMeters: el.distanceInMeters,
+          durationInSeconds: el.durationInSeconds,
           discipline: el.discipline,
         });
       });
       addTraining.parts = parts;
       return await this.trainingRepository.save(addTraining);
     } catch (error) {
-      throw new HttpException(error, HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        'Probably there is not valid uuid',
+        HttpStatus.BAD_REQUEST,
+      );
     }
   }
 
@@ -81,18 +93,25 @@ export class TrainingService {
   //      ;
 
   async deleteOneTraining(id: string) {
-    const res1 = await this.trainingPartRepository
-      .createQueryBuilder()
-      .delete()
-      .from(TrainingPart)
-      .where('trainingId = :id', { id: id })
-      .execute();
+    try {
+      const res1 = await this.trainingPartRepository
+        .createQueryBuilder()
+        .delete()
+        .from(TrainingPart)
+        .where('trainingId = :id', { id: id })
+        .execute();
 
-    const res2 = await this.trainingRepository.delete(id);
-    return {
-      delete1: res1,
-      delete2: res2,
-    };
+      const res2 = await this.trainingRepository.delete(id);
+      return {
+        delete1: res1,
+        delete2: res2,
+      };
+    } catch (error) {
+      throw new HttpException(
+        'Probably there is not valid uuid',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
   // async deleteOneTraining(id: string) {

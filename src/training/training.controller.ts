@@ -10,7 +10,9 @@ import {
   Put,
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { UUIDVersion } from 'class-validator';
 import { CreateTrainingDto } from './dto/training/createTraining.dto';
+import { GetOneTrainingDto } from './dto/training/getOneTraining.dto';
 import { UpdateTrainingDto } from './dto/training/updateTraining.dto';
 import { TrainingService } from './training.service';
 
@@ -47,7 +49,7 @@ export class TrainingController {
     if (!res) {
       throw new HttpException(
         'Could not find training by given id',
-        HttpStatus.BAD_REQUEST,
+        HttpStatus.NOT_FOUND,
       );
     } else {
       return res;

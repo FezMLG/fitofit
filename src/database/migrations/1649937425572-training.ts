@@ -56,11 +56,11 @@ export class training1649937425572 implements MigrationInterface {
         type: 'text',
       },
       {
-        name: 'distance',
+        name: 'distanceInMeters',
         type: 'integer',
       },
       {
-        name: 'duration',
+        name: 'durationInSeconds',
         type: 'integer',
       },
     ],

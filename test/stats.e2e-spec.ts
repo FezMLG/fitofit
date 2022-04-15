@@ -2,9 +2,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
+import { cleanupBeforeEachSpec } from './database-cleaner';
 
-describe('AppController (e2e)', () => {
-  // cleanupBeforeEachSpec();
+describe.skip('AppController (e2e)', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
@@ -20,8 +20,9 @@ describe('AppController (e2e)', () => {
     await app.close();
   });
 
+  cleanupBeforeEachSpec();
+
   it('/stats (POST)', async () => {
-    console.log(process.env.NODE_ENV);
     const response = await request(app.getHttpServer())
       .post('/stats')
       .send()

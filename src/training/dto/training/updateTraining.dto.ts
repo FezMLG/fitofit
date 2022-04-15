@@ -11,8 +11,8 @@ import { Discipline, IPartialWorkout } from '../../../interfaces';
 class WorkoutDto {
   id: UUIDVersion;
   discipline: string;
-  distance: number;
-  duration: number;
+  distanceInMeters: number;
+  durationInSeconds: number;
 }
 
 export class UpdateTrainingDto {

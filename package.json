@@ -12,7 +12,8 @@
     "start": "ts-node src/index.ts",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+    "start:prod": "nest start",
+    "start:prod:alt": "node build",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -21,10 +22,10 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "test:e2e:watch": "jest --config ./test/jest-e2e.json --watch",
     "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
-    "migration:create": "npm run build && npm run typeorm migration:create -- -n Fitofit --config ./build/ormconfig.js",
-    "migration:generate": "npm run build && npm run typeorm migration:generate -- -n xxx1 --config ./build/ormconfig.js",
-    "migration:revert": "npm run build && npm run typeorm migration:revert -- --config ./build/ormconfig.js",
-    "migration:run": "npm run build && npm run typeorm migration:run -- --config ./build/ormconfig.js"
+    "migration:create": "npm run build && npm run typeorm migration:create -- -n Fitofit --config ./build/database/ormconfig.js",
+    "migration:generate": "npm run build && npm run typeorm migration:generate -- -n Fitofit --config ./build/database/ormconfig.js",
+    "migration:revert": "npm run build && npm run typeorm migration:revert -- --config /build/database/ormconfig.js",
+    "migration:run": "npm run build && npm run typeorm migration:run -- --config ./build/database/ormconfig.js"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",

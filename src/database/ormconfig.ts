@@ -10,8 +10,8 @@ module.exports = [
     url: process.env.DATABASE_URL,
     schema: 'public',
 
-    synchronize: false,
-    migrationsRun: true,
+    synchronize: true,
+    // migrationsRun: true,
 
     logging: process.env.DATABASE_LOGGING === 'true',
 
@@ -28,20 +28,21 @@ module.exports = [
     name: 'test',
     type: 'postgres',
     schema: 'public',
-    url: process.env.DATABASE_URL,
-    synchronize: false,
-    migrationsRun: true,
+    keepConnectionAlive: true,
+
+    synchronize: true,
+    // migrationsRun: true,
 
     logging: process.env.DATABASE_LOGGING === 'true',
 
     autoLoadEntities: true,
-    entities: [Training, TrainingPart],
-    // entities: ['build/**/*.entity{.ts,.js}'],
-    migrations: ['build/database/migrations/*.js'],
+
+    entities: ['./src/**/*.entity.ts'], // tests run on TS directly
+    migrations: ['./src/**/migrations/*.ts'],
     migrationsTableName: 'migrations',
 
     cli: {
-      migrationsDir: 'src/database/migrations',
+      migrationsDir: './src/migrations',
     },
   },
   {
@@ -50,7 +51,7 @@ module.exports = [
     schema: 'public',
     url: process.env.DATABASE_URL,
     synchronize: true,
-    migrationsRun: true,
+    // migrationsRun: true,
 
     logging: process.env.DATABASE_LOGGING === 'true',
 

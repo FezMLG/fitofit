@@ -25,8 +25,8 @@ export class TrainingPart {
   discipline: string;
 
   @Column({ type: 'integer' })
-  distance: number;
+  distanceInMeters: number;
 
   @Column({ type: 'integer' })
-  duration: number;
+  durationInSeconds: number;
 }

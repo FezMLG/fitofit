@@ -8,7 +8,7 @@ services:
     volumes:
     - ./docker/postgres:/data/postgres
     env_file:
-    - .env
+    - .env.docker
     networks:
       postgres:
         ipv4_address: 172.20.0.5
@@ -23,7 +23,7 @@ services:
     volumes:
     - ./docker/pgadmin:/root/.pgadmin
     env_file:
-    - .env
+    - .env.docker
     networks:
       postgres:
         ipv4_address: 172.20.0.6

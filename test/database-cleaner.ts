@@ -1,11 +1,7 @@
 import { Connection, getConnection } from 'typeorm';
 
 export class DatabaseCleaner {
-  constructor(
-    private readonly connection: Connection = getConnection(
-      process.env.NODE_ENV,
-    ),
-  ) {}
+  constructor(private readonly connection: Connection = getConnection()) {}
 
   public async cleanup() {
     const { connection } = this;

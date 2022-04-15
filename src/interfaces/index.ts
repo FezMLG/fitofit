@@ -74,12 +74,12 @@ export type Discipline = 'biking' | 'swimming' | 'running';
 
 export interface IPartialWorkout {
   discipline: Discipline;
-  distance: number;
-  duration: number;
+  distanceInMeters: number;
+  durationInSeconds: number;
 }
 
 export interface IWorkout {
-  workoutId: string;
+  workoutId?: string;
   userId: string;
   date: string;
   parts: IPartialWorkout[];
@@ -96,7 +96,7 @@ export interface ITrainingReturn {
 
 export interface Part {
   discipline: string;
-  distance: number;
-  duration: number;
+  distanceInMeters: number;
+  durationInSeconds: number;
   id: string | number;
 }
