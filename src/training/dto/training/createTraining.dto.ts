@@ -12,11 +12,10 @@ import {
   IsArray,
   IsNumber,
 } from 'class-validator';
-import { Discipline, IPartialWorkout } from '../../../interfaces';
 
-class WorkoutDto implements IPartialWorkout {
+class WorkoutDto {
   @IsString()
-  discipline: Discipline;
+  discipline: string;
   @IsNumber()
   distanceInMeters: number;
   @IsNumber()
