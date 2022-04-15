@@ -1,5 +1,5 @@
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
-import { Training } from './entity/Training.entity';
+import { Training } from './entity/training.entity';
 import 'dotenv/config';
 import { TrainingPart } from './entity/trainingPart.entity';
 
