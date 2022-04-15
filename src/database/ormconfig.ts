@@ -10,8 +10,8 @@ module.exports = [
     url: process.env.DATABASE_URL,
     schema: 'public',
 
-    synchronize: true,
-    // migrationsRun: true,
+    synchronize: false,
+    migrationsRun: true,
 
     logging: process.env.DATABASE_LOGGING === 'true',
 
