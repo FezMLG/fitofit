@@ -25,7 +25,7 @@ module.exports = [
     },
   },
   {
-    name: 'development', //for all environments
+    name: 'production',
     type: 'postgres',
     url: process.env.DATABASE_URL,
     schema: 'public',
