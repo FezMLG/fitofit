@@ -36,7 +36,10 @@ export class TrainingService {
       addTraining.parts = parts;
       return await this.trainingRepository.save(addTraining);
     } catch (error) {
-      throw new HttpException(error, HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        'Failed adding to database',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 
