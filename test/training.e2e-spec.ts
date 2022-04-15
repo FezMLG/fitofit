@@ -20,10 +20,17 @@ describe('AppController (e2e)', () => {
     parts: [
       {
         discipline: 'bike',
-        distance: 123,
-        duration: 123,
+        distanceInMeters: 123,
+        durationInSeconds: 123,
       },
     ],
+    notes: '',
+  };
+
+  const sampleTrainingWithoutParts = {
+    userId: 'forTestingPurposes',
+    date: '2021-12-02',
+    parts: [],
   };
 
   const sampleTrainingReturn = {
@@ -32,8 +39,8 @@ describe('AppController (e2e)', () => {
     parts: [
       {
         discipline: 'bike',
-        distance: 123,
-        duration: 123,
+        distanceInMeters: 123,
+        durationInSeconds: 123,
         id: expect.any(String),
       },
     ],
@@ -56,22 +63,63 @@ describe('AppController (e2e)', () => {
 
   cleanupBeforeEachSpec();
 
-  it('/training (POST)', async () => {
-    const response = await request(app.getHttpServer())
-      .post('/training')
-      .send(sampleTraining)
-      .expect('Content-Type', /json/)
-      .expect(201);
-    expect(response.body).toEqual(sampleTrainingReturn);
+  describe('/training (POST)', () => {
+    it('should return created training', async () => {
+      const response = await request(app.getHttpServer())
+        .post('/training')
+        .send(sampleTraining)
+        .expect('Content-Type', /json/)
+        .expect(201);
+      expect(response.body).toEqual(sampleTrainingReturn);
+    });
+
+    it('should return create validation errors', async () => {
+      const response = await request(app.getHttpServer())
+        .post('/training')
+        .expect('Content-Type', /json/)
+        .expect(400);
+      expect(response.body).toEqual({
+        statusCode: 400,
+        message: [
+          'userId must be a string',
+          'date must be a string',
+          'parts must be an array',
+        ],
+        error: 'Bad Request',
+      });
+    });
+
+    it('should return create validation errors when validating parts', async () => {
+      const response = await request(app.getHttpServer())
+        .post('/training')
+        .send(sampleTrainingWithoutParts)
+        .expect('Content-Type', /json/)
+        .expect(201);
+      expect(response.body).toEqual({
+        statusCode: 400,
+        message: [
+          'userId must be a string',
+          'date must be a string',
+          'parts must be an array',
+        ],
+        error: 'Bad Request',
+      });
+    });
   });
 
-  it('/training (GET)', async () => {
-    await request(app.getHttpServer()).post('/training').send(sampleTraining);
-    const response = await request(app.getHttpServer())
-      .get('/training')
-      .expect(200)
-      .expect('Content-Type', /json/);
-    expect(response.body).toEqual([sampleTrainingReturn]);
+  describe('/training (GET)', () => {
+    it('should return an array with all existing trainings', async () => {
+      await request(app.getHttpServer()).post('/training').send(sampleTraining);
+      await request(app.getHttpServer()).post('/training').send(sampleTraining);
+      const response = await request(app.getHttpServer())
+        .get('/training')
+        .expect(200)
+        .expect('Content-Type', /json/);
+      expect(response.body).toEqual([
+        sampleTrainingReturn,
+        sampleTrainingReturn,
+      ]);
+    });
   });
 
   describe('/training/:id (GET)', () => {
