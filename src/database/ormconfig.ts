@@ -9,6 +9,26 @@ module.exports = [
     type: 'postgres',
     url: process.env.DATABASE_URL,
     schema: 'public',
+
+    synchronize: false,
+    migrationsRun: true,
+
+    logging: process.env.DATABASE_LOGGING === 'true',
+
+    autoLoadEntities: true,
+
+    entities: ['build/**/*.entity{.ts,.js}'],
+    migrations: ['build/database/migrations/*.js'],
+
+    cli: {
+      migrationsDir: 'src/database/migrations',
+    },
+  },
+  {
+    name: 'development', //for all environments
+    type: 'postgres',
+    url: process.env.DATABASE_URL,
+    schema: 'public',
     ssl: true,
     extra: {
       ssl: {
