@@ -5,18 +5,24 @@ import {
   IsArray,
   UUIDVersion,
   ValidateNested,
+  IsUUID,
+  IsNumber,
 } from 'class-validator';
 import { Discipline, IPartialWorkout } from '../../../interfaces';
 
 class WorkoutDto {
+  @IsUUID()
   id: UUIDVersion;
+  @IsString()
   discipline: string;
+  @IsNumber()
   distanceInMeters: number;
+  @IsNumber()
   durationInSeconds: number;
 }
 
 export class UpdateTrainingDto {
-  @IsString()
+  @IsUUID()
   readonly id: UUIDVersion;
 
   @IsString()
@@ -25,8 +31,8 @@ export class UpdateTrainingDto {
   @IsString()
   readonly date: string;
 
-  // @ValidateNested({ each: true })
-  // @Type(() => WorkoutDto)
+  @ValidateNested({ each: true })
+  @Type(() => WorkoutDto)
   @IsArray()
   readonly parts: WorkoutDto[];
 

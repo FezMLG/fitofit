@@ -29,7 +29,7 @@ export class TrainingController {
 
   @Put()
   async updateTraining(@Body() update: UpdateTrainingDto) {
-    const res = this.trainingService.updateTraining(update);
+    const res = await this.trainingService.updateTraining(update);
     if (!res) {
       throw new HttpException(
         'Could not update training',

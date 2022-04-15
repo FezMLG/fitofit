@@ -75,6 +75,7 @@ export class TrainingService {
           distanceInMeters: el.distanceInMeters,
           durationInSeconds: el.durationInSeconds,
           discipline: el.discipline,
+          id: el.id,
         });
       });
       addTraining.parts = parts;
